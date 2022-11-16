@@ -1,4 +1,4 @@
-import React, {useContext,useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 const AppContext = React.createContext()
 
 import axios from 'axios'
@@ -9,32 +9,42 @@ const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
 
 
 
-const AppProvider = ({ children }) =>{
-const [meals, setMeals] = useState([])  
-  
-  
-const fetchMeals = async (url) =>{
-      try {
-        const {data} = await axios(url)
-        setMeals(data.meals)
-        
-    
-      } catch (error) {
-              console.log(error.response)
+const AppProvider = ({ children }) => {
+  const [loading, setLoading] = useState(false)
+  const [meals, setMeals] = useState([])
+
+
+  const fetchMeals = async (url) => {
+    setLoading(true)
+    try {
+      const { data } = await axios(url)
+
+      if(data.meals){
+      
+      setMeals(data.meals)
       }
+      else {
+        setMeals([])
+      }
+
+
+    } catch (error) {
+      console.log(error.response)
     }
-  
-  useEffect(()=>{
-    
+    setLoading(false)
+  }
+
+  useEffect(() => {
+
     fetchMeals(allMealsUrl)
-  },[]) 
-  
-  return <AppContext.Provider value={{meals}}>
+  }, [])
+
+  return <AppContext.Provider value={{ loading, meals }}>
     {children}
   </AppContext.Provider>
 }
 
-export const useGlobalContext = () =>{
+export const useGlobalContext = () => {
   return useContext(AppContext)
 }
 
