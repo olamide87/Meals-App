@@ -4,7 +4,7 @@ import {useGlobalContext} from '../context'
 const Search = () => {
   const [text, setText] = useState('')
 
-  const {setSearchTerm} = useGlobalContext()
+  const {setSearchTerm, fetchRandomMeal} = useGlobalContext()
 
   
   const handleChange = (e) => {
@@ -14,7 +14,7 @@ const Search = () => {
     e.preventDefault()
     if(text){
       setSearchTerm(text)}
-    setText('')
+    
     }
   
 
@@ -22,7 +22,7 @@ const Search = () => {
     <form onSubmit={handleSubmit}>
       <input type="text" placeholder='type favorite meal' value={text} onChange={handleChange} className='form-input'/>
       <button type="submit" className='btn'>search</button>
-      <button type="submit" className='btn btn-hipster'>surprise me</button>
+      <button type="submit" className='btn btn-hipster' onClick={fetchRandomMeal}>surprise me</button>
     </form>
     </header>
 }
