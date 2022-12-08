@@ -1,7 +1,7 @@
 import { useGlobalContext } from '../context'
 
 const Favorites = () => {
-  const {favorites, selectMeal, removeFromFavorties} = useGlobalContext()
+  const {favorites, selectMeal, removeFromFavorites} = useGlobalContext()
   
   return <section className='favorites'>
     <div className="favorites-content">
@@ -11,7 +11,7 @@ const Favorites = () => {
     const {idMeal, strMealThumb:image} = item;
 
     return <div key={idMeal} className="favorite-item">
-      <img src={image} className="favories-img img"/>
+      <img src={image} className="favorites-img img" onClick={()=>selectMeal(idMeal, true)}/>
       <button className="remove-btn" onClick={()=>removeFromFavorites(idMeal)}>
         remove
       </button>
