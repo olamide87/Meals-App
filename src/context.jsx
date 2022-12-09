@@ -6,6 +6,18 @@ import axios from 'axios'
 const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?f='
 const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
 
+const getFavoritesFromLocalStorage = () =>{
+  let favorites = localStorage.getItem('favorites');
+
+    if(favorites){
+      favorites = JSON.parse(localStorage.getItem('favorites'))
+    }
+  else{
+    favorites = []
+  }
+  return favorites
+}
+
 
 
 
@@ -16,7 +28,7 @@ const AppProvider = ({ children }) => {
   
   const [showModal, setShowModal] = useState(false)
   const [selectedMeal, setSelectedMeal] = useState([])
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
 
 
 
